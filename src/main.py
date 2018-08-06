@@ -20,17 +20,14 @@ class Example(QWidget):
         self.setMouseTracking(True)
         self.setLayout(grid)
 
-        label = RandomImage(self)
-        label.setPixmap(QPixmap('smile.png'))
-        label.setGeometry(random.randint(0, 300 - 100), random.randint(0, 300 - 100), 100, 100)
+        for num in range(0, 100):
+            RandomImage(self, 'smile.png')
 
-        label = RandomImage(self)
-        label.setPixmap(QPixmap('jbk.png'))
-        label.setGeometry(random.randint(0, 300 - 100), random.randint(0, 300 - 100), 100, 100)
+        RandomImage(self, 'jbk.png')
 
         self.center()
         self.setGeometry(300, 300, 300, 300)
-        self.setWindowTitle('鸡巴宽你妈炸了')
+        self.setWindowTitle('嘻嘻')
         self.setWindowIcon(QIcon('smile.png'))
         self.show()
 
@@ -40,19 +37,18 @@ class Example(QWidget):
         qr.moveCenter(cp)
         self.move(qr.topLeft())
 
-    def mouseMoveEvent(self, e):
-        x = e.x()
-        y = e.y()
-        print(x, y)
-
 
 class RandomImage(QLabel):
-    def __init__(self, mSelf):
+    const_image = 30
+
+    def __init__(self, mSelf, imagePath):
         super().__init__(mSelf)
         self.setMouseTracking(True)
+        self.setPixmap(QPixmap(imagePath).scaled(self.const_image, self.const_image))
+        self.setGeometry(random.randint(0, 300 - self.const_image), random.randint(0, 300 - self.const_image), self.const_image, self.const_image)
 
     def mouseMoveEvent(self, event):
-        self.setGeometry(random.randint(0, 300 - 100), random.randint(0, 300 - 100), 100, 100)
+        self.setGeometry(random.randint(0, 300 - self.const_image), random.randint(0, 300 - self.const_image), self.const_image, self.const_image)
 
 
 if __name__ == '__main__':
